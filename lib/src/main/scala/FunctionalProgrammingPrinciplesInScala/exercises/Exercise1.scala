@@ -44,6 +44,12 @@ class Exercise1 {
     }
   }
 
+  /*
+   * Collect possible combinations of coins. The strategy we use is that all combinations of coins
+   * c1, ... c_n can be expressed in terms of those combinations that use c1 and those that
+   * do not. This allows us to use recursion to decrease the space of coins to guarantee
+   * that the algorithm terminates.
+   */
   def countChange(money: Int, coins: List[Int]): Int = {
     require(money >= 0, "money must be greater or equal to 0")
 
@@ -52,11 +58,9 @@ class Exercise1 {
       val eligibleCoins = coins.filter(c => c <= money)
 
       if (money == 0) {
-        println("keep: ", money, coins, eligibleCoins, acc)
         acc :: Nil
       }
       else if (eligibleCoins.isEmpty) {
-        println("toss: ", money, coins, eligibleCoins, acc)
         Nil
       }
       else {
@@ -68,7 +72,6 @@ class Exercise1 {
 
     val coinsList = coins.distinct
     makeChange(money, coinsList, List.empty[Int]).filter(!_.isEmpty).distinct.size
-
   }
 
 }
